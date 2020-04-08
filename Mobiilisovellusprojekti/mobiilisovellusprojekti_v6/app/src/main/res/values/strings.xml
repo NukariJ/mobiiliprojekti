@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Mobiilisovellus</string>
+    <string name="LisaOsat"><u>Lisäosat</u></string>
+    <string name="HakuLO"><u>Hae nimellä:</u></string>
+    <string name="jarjesteleLO"><u>Järjestele:</u></string>
+    <string-array name="Lisaosa_Jarjestely_Palkki">
+        <item>Kallein ensin</item>
+        <item>Halvin ensin</item>
+    </string-array>
+</resources>
