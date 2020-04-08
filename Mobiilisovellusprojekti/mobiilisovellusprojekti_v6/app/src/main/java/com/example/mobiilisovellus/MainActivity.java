@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.time.LocalDateTime;
@@ -38,6 +39,19 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
 
         tehtavaLista = new ArrayList<>();
         tehtavaListView = findViewById(R.id.tLista);
+
+
+        // nappi jolla mennään tehtävän lisäys osioon
+        Button btn = (Button)findViewById(R.id.button);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, TehtavaOsioPaanakyma.class));
+            }
+        });
+
+
 
 
 
