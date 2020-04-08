@@ -7,13 +7,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+
+//import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -29,8 +30,6 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
     private ArrayList<Tehtava> tulosLista;
     private int indexi;
 
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
