@@ -6,6 +6,7 @@
     </shared>
   </component>
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="92719668-d9be-4761-adf4-2c3149c2971f" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_annimon_stream_1_1_7_jar.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_applandeo_material_calendar_view_1_4_0_aar.xml" afterDir="false" />
@@ -21,13 +22,32 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mobiilisovellus/TehtavaAjastin.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mobiilisovellus/TehtavaAjastin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
     </list>
+=======
+<<<<<<< Updated upstream
+    <list default="true" id="92719668-d9be-4761-adf4-2c3149c2971f" name="Default Changelist" comment="" />
+=======
+    <list default="true" id="d36b35fa-c9e4-4e09-8ede-7caa82d5420b" name="Default Changelist" comment="" />
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< Updated upstream
   <component name="ExecutionTargetManager" SELECTED_TARGET="Nexus_5X_API_29_x86" />
+=======
+<<<<<<< Updated upstream
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_API_29" />
+=======
+<<<<<<< Updated upstream
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_API_R" />
+=======
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_3a_API_29" />
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -56,16 +76,40 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
+<<<<<<< Updated upstream
   <component name="ProjectId" id="1aFVTPehsfOlGNm4DZvhEyI62HY" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+<<<<<<< Updated upstream
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+<<<<<<< Updated upstream
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/drawable-v24" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\mobiiliprojekti\Mobiilisovellusprojekti\mobiilisovellusprojekti_v6\app\src\main\res\drawable-v24" />
     </key>
+=======
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/android studio teht/gps_location" />
+=======
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+=======
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1aFYZrf5wY0prvWe3KUaeGGAoeq" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -87,7 +131,11 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+<<<<<<< Updated upstream
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+=======
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
+>>>>>>> Stashed changes
       <module name="app" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
@@ -195,11 +243,19 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< Updated upstream
       <changelist id="92719668-d9be-4761-adf4-2c3149c2971f" name="Default Changelist" comment="" />
       <created>1586331335151</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1586331335151</updated>
+=======
+      <changelist id="d36b35fa-c9e4-4e09-8ede-7caa82d5420b" name="Default Changelist" comment="" />
+      <created>1586332867315</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1586332867315</updated>
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
