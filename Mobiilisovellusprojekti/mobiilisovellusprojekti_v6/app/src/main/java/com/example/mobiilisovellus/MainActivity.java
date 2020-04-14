@@ -2,6 +2,7 @@ package com.example.mobiilisovellus;
 
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -59,22 +60,12 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
         kalenteri = findViewById(R.id.kalenteriNakyma);
 
 
-<<<<<<< Updated upstream
         Calendar k = Calendar.getInstance();
 
 
         Date date = Date.from(LocalDate.now().plusDays(2).atStartOfDay(ZoneId.systemDefault()).toInstant());
 
         k.setTime(date);
-=======
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, Tehtava_Esikatselu.class));
-
-            }
-        });
->>>>>>> Stashed changes
 
 
 
@@ -106,7 +97,6 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
         tAdapter = new TehtavaAdapter(this,tehtavaLista);
         tehtavaListView.setAdapter(tAdapter);
 
-<<<<<<< Updated upstream
 
 
 
@@ -114,8 +104,6 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
 
 
 
-=======
->>>>>>> Stashed changes
         tehtavaListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -158,7 +146,6 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
         TehtavaAjastin ajastin = new TehtavaAjastin(MainActivity.this);
         ajastin.lataaTehtavat(tehtavaLista);
         ajastin.execute();
-<<<<<<< Updated upstream
 
 
 
@@ -167,8 +154,6 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_item, menu);
         return true;
-=======
->>>>>>> Stashed changes
     }
 
     @Override
@@ -197,8 +182,10 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
     public void lisaaTehtava(View view) {
 
         // Avaa TehtäväOsioPäänäkymän
-        Intent intent = new Intent(this, Tehtava_Esikatselu.class);
+
+        Intent intent = new Intent(this,Lisaa_Tehtava.class);
         startActivityForResult(intent,palautusKoodi);
+
     }
 
     @Override
@@ -222,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
         tulosLista = list;
 
         if (!list.isEmpty()) {
-            for (Tehtava i : tulosLista) {
+            for(Tehtava i: tulosLista) {
                 indexi = tehtavaLista.indexOf(i);
                 tehtavaLista.get(indexi).setVanhentunut(true);
 
@@ -249,6 +236,11 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
                     Log.d("uithread", "1");
                 }
             });
+
         }
     }
+
+
+
+
 }
