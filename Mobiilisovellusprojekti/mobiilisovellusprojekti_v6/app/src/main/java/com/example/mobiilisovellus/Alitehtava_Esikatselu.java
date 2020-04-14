@@ -7,7 +7,7 @@ import android.graphics.Color;
         import android.view.View;
         import android.widget.Button;
 
-public class TehtavaOsio extends AppCompatActivity {
+public class Alitehtava_Esikatselu extends AppCompatActivity {
 
     Button subTaskPercent;
     int task = 0;
@@ -15,7 +15,7 @@ public class TehtavaOsio extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tehtava_osio);
+        setContentView(R.layout.activity_Alitehtava_Esikatselu);
 
         subTaskPercent = (Button) findViewById(R.id.subTaskPercent);
 
