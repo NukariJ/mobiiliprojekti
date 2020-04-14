@@ -2,6 +2,7 @@ package com.example.mobiilisovellus;
 
 
 import android.os.AsyncTask;
+import android.os.Build;
 
 
 import androidx.annotation.RequiresApi;
@@ -23,6 +24,7 @@ public class TehtavaAjastin extends AsyncTask <String,String,String>{
         raportti = t;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected String doInBackground(String... params) {
         while(isStarted = true) {
