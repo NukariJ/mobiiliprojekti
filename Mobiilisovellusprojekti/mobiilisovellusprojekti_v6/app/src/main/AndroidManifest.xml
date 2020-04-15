@@ -11,19 +11,32 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Lisaa_Tehtava">
             <intent-filter>
-                <action android:name="android.intent.action.tehtavan_muokkaus"/>
+                <action android:name="android.intent.action.Lisaa_Tehtava"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+    <activity android:name=".Lisaa_Alitehtava">
+        <intent-filter>
+        <action android:name="android.intent.action.Lisaa_Alitehtava" />
+
+        <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
         <activity android:name=".Tehtava_Esikatselu">
             <intent-filter>
-                <action android:name="android.intent.action.TehtavaOsioPaanakyma" />
+                <action android:name="android.intent.action.Tehtava_Esikatselu" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Alitehtava_Esikatselu" />
+        <activity android:name=".Alitehtava_Esikatselu">
+
+            <intent-filter>
+                <action android:name="android.intent.action.Alitehtava_Esikatselu"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
