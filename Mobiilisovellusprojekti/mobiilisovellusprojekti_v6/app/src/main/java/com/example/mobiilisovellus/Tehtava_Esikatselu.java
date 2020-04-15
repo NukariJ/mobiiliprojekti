@@ -15,7 +15,7 @@ public class Tehtava_Esikatselu extends AppCompatActivity  {
         @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_Tehtava_Esikatselu);
+        setContentView(R.layout.activity_tehtava_esikatselu);
 
         //str = getIntent().getStringExtra("msg");
 

@@ -15,7 +15,7 @@ public class Alitehtava_Esikatselu extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_Alitehtava_Esikatselu);
+        setContentView(R.layout.activity_alitehtava_esikatselu);
 
         subTaskPercent = (Button) findViewById(R.id.subTaskPercent);
 
