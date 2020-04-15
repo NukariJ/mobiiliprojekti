@@ -30,12 +30,12 @@
             android:id="@+id/SubTaskNameEditor"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:hint="Lis„„ teht„v„n nimi"/>
+            android:hint="Lisää tehtävän nimi"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="2dp"/>
         <EditText
-            android:hint="Lis„„ kuvaus"
+            android:hint="Lisää kuvaus"
             android:id="@+id/taskDescription"
             android:layout_width="match_parent"
             android:layout_height="100dp"
@@ -63,7 +63,8 @@
                 android:id="@+id/saveSubTask"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TALLENNA ALITEHTŽVŽ"
+                android:text="TALLENNA"
+                android:layout_marginLeft="85dp"
                 android:background="#4CAF50"/>
 
 

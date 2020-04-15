@@ -3,6 +3,8 @@ package com.example.mobiilisovellus;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.View;
+import android.content.Intent;
+import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
