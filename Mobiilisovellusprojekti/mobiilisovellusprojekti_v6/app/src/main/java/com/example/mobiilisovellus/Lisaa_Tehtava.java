@@ -14,7 +14,7 @@ public class Lisaa_Tehtava extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_LisaaTehtava);
+        setContentView(R.layout.activity_Lisaa_Tehtava);
         findViewById(R.id.saveTask).setOnClickListener(this);
         findViewById(R.id.backButton).setOnClickListener(this);
     }
