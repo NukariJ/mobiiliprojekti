@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
 
         // Avaa TehtäväOsioPäänäkymän
 
-        Intent intent = new Intent(this,TehtavaOsioPaanakyma.class);
+        Intent intent = new Intent(this,Lisaa_Tehtava.class);
         startActivityForResult(intent,palautusKoodi);
 
     }

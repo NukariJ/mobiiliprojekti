@@ -9,22 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".tehtavan_muokkaus">
+        <activity android:name=".Lisaa_Tehtava">
             <intent-filter>
                 <action android:name="android.intent.action.tehtavan_muokkaus"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".LisaosaNakyma" />
-        <activity android:name=".TehtavaOsioPaanakyma">
+        <activity android:name=".Tehtava_Esikatselu">
             <intent-filter>
                 <action android:name="android.intent.action.TehtavaOsioPaanakyma" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TehtavaOsio" />
+        <activity android:name=".Alitehtava_Esikatselu" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
