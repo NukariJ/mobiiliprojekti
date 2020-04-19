@@ -6,7 +6,9 @@ import java.util.Calendar;
 
 public class TehtavaEvent extends EventDay {
 
-    private String tehtavaNote;
+    //luokka tehtävien laittamiseksi kalenteriin
+
+    private String tehtavaNote; //tehtävän kuvaus
 
     TehtavaEvent(Calendar day, int imageResource, String note) {
         super(day, imageResource);

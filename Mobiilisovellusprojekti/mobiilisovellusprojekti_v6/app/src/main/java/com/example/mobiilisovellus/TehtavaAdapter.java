@@ -2,6 +2,7 @@ package com.example.mobiilisovellus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +14,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TehtavaAdapter extends ArrayAdapter<Tehtava> {
+
+    //adapteri Listviewille tehtäväluokkaa varten
 
     private Context mContext;
     private List<Tehtava> tehtavaList;
@@ -29,6 +33,7 @@ public class TehtavaAdapter extends ArrayAdapter<Tehtava> {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -38,9 +43,7 @@ public class TehtavaAdapter extends ArrayAdapter<Tehtava> {
 
         Tehtava current = tehtavaList.get(position);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM HH:mm");
-
-
+        //Tehtäväoliosta otetaan tarpeelliset tiedot ja niiden perusteella luodaan näkymä listviewille
 
         TextView nimi = (TextView) listItem.findViewById(R.id.textView_nimi);
         nimi.setText(current.getNimi());
@@ -53,8 +56,11 @@ public class TehtavaAdapter extends ArrayAdapter<Tehtava> {
             paivamaara.setText("Tehtävä vanhentunut");
         }else {
 
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime paivamaaraTehtava =  LocalDateTime.parse(current.getPaivamaara(),formatter);
+
             TextView paivamaara = (TextView) listItem.findViewById(R.id.textView_paivamaara);
-            paivamaara.setText("" + current.getPaivamaara().format(formatter));
+            paivamaara.setText(paivamaaraTehtava.toString());
 
         }
         return listItem;

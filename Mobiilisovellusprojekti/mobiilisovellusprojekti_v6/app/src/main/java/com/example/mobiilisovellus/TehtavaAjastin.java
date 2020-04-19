@@ -3,17 +3,17 @@ package com.example.mobiilisovellus;
 
 import android.os.AsyncTask;
 import android.os.Build;
-
-
 import androidx.annotation.RequiresApi;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import static java.lang.Thread.sleep;
 
 public class TehtavaAjastin extends AsyncTask <String,String,String>{
+
+    //Ajastin luokka tarkastelee tehtävien päivämääriä ja ilmoittaa vanhentuneista tehtävistä päänäkymälle
 
     private boolean isStarted = false;
     private tehtavaRaportti raportti;
@@ -27,6 +27,9 @@ public class TehtavaAjastin extends AsyncTask <String,String,String>{
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected String doInBackground(String... params) {
+
+        tulosLista = new ArrayList<>();
+
         while(isStarted = true) {
 
             try{
@@ -38,9 +41,9 @@ public class TehtavaAjastin extends AsyncTask <String,String,String>{
                     for (Tehtava t : tehtavaLista) {
 
                         if(t.getVanhentunut() == false) {
-
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                             LocalDateTime paivamaaraNyt = LocalDateTime.now();
-                            LocalDateTime paivamaaraTehtava = t.getPaivamaara();
+                            LocalDateTime paivamaaraTehtava =  LocalDateTime.parse(t.getPaivamaara(),formatter);
 
                             Duration erotus = Duration.between(paivamaaraNyt, paivamaaraTehtava);
                             if (erotus.isNegative()) {
@@ -56,7 +59,7 @@ public class TehtavaAjastin extends AsyncTask <String,String,String>{
                     raportti.lahetaRaportti(tulosLista);
                 }
 
-                sleep(10000);
+                sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -72,6 +75,8 @@ public class TehtavaAjastin extends AsyncTask <String,String,String>{
     public void lataaTehtavat(ArrayList<Tehtava> list) {
         tehtavaLista = list;
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
 
 
     public void quit() {

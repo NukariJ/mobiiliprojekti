@@ -1,23 +1,26 @@
 package com.example.mobiilisovellus;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
 public class Tehtava implements Serializable {
 
-    private String nimi;
-    private LocalDateTime paivamaara;
-    private double suoritettu;
-    private ArrayList aliTehtava;
-    private Boolean vanhentunut;
+    //Tehtäväluokka
 
-    public Tehtava(String n, LocalDateTime d, int p) {
+    private String nimi;
+    private String paivamaara;
+    private double suoritettu;  //paljonko tehtävästä on suoritettu
+    private ArrayList<String> aliTehtava; //alitehtävät tallennetaan tänne, toi <String> paikalle laitetaan alitehtävä luokka
+    private Boolean vanhentunut;  //onko tehtävä vanhentunut vai ei?
+
+    public Tehtava(String n, String d, int p) {
         this.nimi = n;
         this.paivamaara = d;
         this.suoritettu = p;
         this.vanhentunut = false;
+        aliTehtava = new ArrayList<>();
+        aliTehtava.add("testi");
     }
 
     public String getNimi() {
@@ -28,11 +31,11 @@ public class Tehtava implements Serializable {
         this.nimi = nimi;
     }
 
-    public LocalDateTime getPaivamaara() {
+    public String getPaivamaara() {
         return paivamaara;
     }
 
-    public void setPaivamaara(LocalDateTime paivamaara) {
+    public void setPaivamaara(String paivamaara) {
         this.paivamaara = paivamaara;
     }
 
@@ -44,13 +47,14 @@ public class Tehtava implements Serializable {
         this.suoritettu = suoritettu;
     }
 
-    public ArrayList getAliTehtava() {
+    /*public ArrayList getAliTehtava() {
         return aliTehtava;
     }
 
     public void setAliTehtava(ArrayList aliTehtava) {
-        this.aliTehtava = aliTehtava;
+       this.aliTehtava = aliTehtava;
     }
+    */
 
     public Boolean getVanhentunut() {
         return vanhentunut;

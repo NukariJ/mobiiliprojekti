@@ -8,9 +8,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 
 
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,19 +22,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
-
-
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
-
-import java.time.LocalDate;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements TehtavaAjastin.tehtavaRaportti {
@@ -40,11 +42,12 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
     private ArrayList<EventDay> kalenteriLista;
     private ListView tehtavaListView;
     private TehtavaAdapter tAdapter;
-    private int palautusKoodi = 2000;
+    private int palautusKoodi = 420;
     private int valinta = -1;
     private ArrayList<Tehtava> tulosLista;
     private int indexi;
     private com.applandeo.materialcalendarview.CalendarView kalenteri;
+    private SharedPreferences shref;
 
     @SuppressLint("ResourceType")
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -54,53 +57,8 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tehtavaLista = new ArrayList<>();
-        tehtavaListView = findViewById(R.id.tLista);
-
-        kalenteri = findViewById(R.id.kalenteriNakyma);
-
-
-        Calendar k = Calendar.getInstance();
-
-
-        Date date = Date.from(LocalDate.now().plusDays(2).atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-        k.setTime(date);
-
-
-
-
-
-        kalenteriLista = new ArrayList<>();
-        kalenteriLista.add(new TehtavaEvent(k,R.drawable.lamb,"Juo kaljaa"));
-
-
-        kalenteri.setEvents(kalenteriLista);
-
-        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM HH:mm");
-
-        LocalDateTime d = LocalDateTime.now();
-
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("H:mm:ss 'h'");
-
-
-
-
-
-        tehtavaLista.add(new Tehtava("Juo kalja",LocalDateTime.now().plusMinutes(1), 30));
-        tehtavaLista.add(new Tehtava("Juo toinen",LocalDateTime.now().plusMinutes(2), 50));
-        tehtavaLista.add(new Tehtava("Ja toinen",LocalDateTime.now().plusMinutes(3), 70));
-        tehtavaLista.add(new Tehtava("Juo",LocalDateTime.now().plusMinutes(4), 79));
-        tehtavaLista.add(new Tehtava("Juo lisää",LocalDateTime.now().plusMinutes(5), 74));
-        tehtavaLista.add(new Tehtava("Juo vettä",LocalDateTime.now().plusMinutes(6), 55));
-
-        tAdapter = new TehtavaAdapter(this,tehtavaLista);
-        tehtavaListView.setAdapter(tAdapter);
-
-
-
-
-
+        lataaTehtavat();
+        lataaKalenteri();
 
 
 
@@ -116,7 +74,12 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
             }
         });
 
+
+
         kalenteri.setOnDayClickListener(new OnDayClickListener() {
+
+            //toiminnallisuus kalenterin klikkausta varten
+
             @Override
             public void onDayClick(final EventDay eventDay) {
 
@@ -142,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
 
 
 
-
+        //ladataan tehtävälista ajastimelle ja käynnistetään ajastin
         TehtavaAjastin ajastin = new TehtavaAjastin(MainActivity.this);
         ajastin.lataaTehtavat(tehtavaLista);
         ajastin.execute();
@@ -151,6 +114,9 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
 
     } @Override
     public boolean onCreateOptionsMenu(Menu menu){
+
+        //sivuvalikon luomis metodi
+
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_item, menu);
         return true;
@@ -158,6 +124,10 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
+
+        // toiminnallisuus sivuvalikolle
+        // ihan vitun kesken vielä
+
         switch (item.getItemId()){
             case R.id.item1:
                 Toast.makeText(this, "Item 1 is selected", Toast.LENGTH_SHORT).show();
@@ -179,12 +149,21 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
     }
 
 
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void lisaaTehtava(View view) {
+
+        // tällä voi lisätä tehtävän  napista testausta varten
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        tAdapter.add(new Tehtava("Juo toinen",LocalDateTime.now().plusMinutes(1).format(formatter),60));
+
+
 
         // Avaa TehtäväOsioPäänäkymän
 
-        Intent intent = new Intent(this,Lisaa_Tehtava.class);
-        startActivityForResult(intent,palautusKoodi);
+        // Intent intent = new Intent(this,TehtavaOsioPaanakyma.class);
+        // startActivityForResult(intent,palautusKoodi);
 
     }
 
@@ -206,6 +185,9 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
     @Override
     public void lahetaRaportti(ArrayList<Tehtava> list) {
 
+        //ajastinluokan rajapinta metodi
+        // lukee listalta vanhentuneet tehtävät ja ilmoittaa niistä käyttäjälle
+
         tulosLista = list;
 
         if (!list.isEmpty()) {
@@ -217,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
                 MainActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
+                        //luo dialogin käyttäjää varten
                         new AlertDialog.Builder(MainActivity.this)
                                 .setTitle("Tehtava Vanhentunut")
                                 .setMessage("Tehtava: " + tehtavaLista.get(indexi).getNimi())
@@ -232,6 +214,7 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    //päivittää listanäkymään muutokset
                     tAdapter.notifyDataSetChanged();
                     Log.d("uithread", "1");
                 }
@@ -241,6 +224,96 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
     }
 
 
+
+
+
+
+    @Override
+    protected void onPause() {
+
+        //Tallentaa tehtävä shared preferenceihin kun käyttäjä pysäyttää ohjelman
+
+        super.onPause();
+        String key = "Key";
+        SharedPreferences.Editor editor;
+        Gson gson = new Gson();
+        String json = gson.toJson(tehtavaLista);
+        editor = shref.edit();
+        editor.remove(key).commit();
+        editor.putString(key, json);
+        editor.commit();
+
+    }
+
+    public void lataaTehtavat() {
+
+        // Lataa tehtävät sharedpreferenceistä
+
+        shref = MainActivity.this.getSharedPreferences("tehtavaObject", Context.MODE_PRIVATE);
+        tehtavaLista = new ArrayList<>();
+
+        try{
+            String key = "Key";
+            Gson gson = new Gson();
+            String response=shref.getString(key , "");
+            ArrayList<Tehtava> lstArrayList = gson.fromJson(response,
+                    new TypeToken<List<Tehtava>>(){}.getType());
+
+            if(lstArrayList.isEmpty() == false) {
+
+                for(Tehtava t : lstArrayList) {
+                    tehtavaLista.add(t);
+                }
+            }
+
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        tehtavaListView = findViewById(R.id.tLista);
+        tAdapter = new TehtavaAdapter(this,tehtavaLista);
+        tehtavaListView.setAdapter(tAdapter);
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void lataaKalenteri() {
+
+        //Lukee tehtävälistalla olevien tehätvien päivämäärät ja lisää ne kalenteriin
+
+        kalenteri = findViewById(R.id.kalenteriNakyma);
+        kalenteriLista = new ArrayList<>();
+
+        if(!tehtavaLista.isEmpty()) {
+
+            // luetaan tehtävälistalla olevat tehtävät
+
+            for(Tehtava t : tehtavaLista) {
+
+                Calendar k = Calendar.getInstance();
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                LocalDateTime paivamaaraTehtava =  LocalDateTime.parse(t.getPaivamaara(),formatter);
+                Date date = Date.from(paivamaaraTehtava.toLocalDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+                k.setTime(date);
+
+                //lisätään merkintä kalenterilistalle
+                //merkinnässä on tehtävän päivämäärä, tehtävän nimi, ja pieni kuva joka näkyy kalenterissa
+                //se on se vitun lammas edellisestä kurssista
+                //eti ite parempi
+
+                kalenteriLista.add(new TehtavaEvent(k,R.drawable.lamb,t.getNimi()));
+
+            }
+        }
+
+        // ladataan kalenterilista kalenteriin
+
+        kalenteri.setEvents(kalenteriLista);
+
+    }
 
 
 }
