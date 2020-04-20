@@ -14,6 +14,7 @@ public class Lisaa_Alitehtava extends AppCompatActivity implements View.OnClickL
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
         setContentView(R.layout.activity_lisaa_alitehtava);
+
         findViewById(R.id.saveSubTask).setOnClickListener(this);
     }
 

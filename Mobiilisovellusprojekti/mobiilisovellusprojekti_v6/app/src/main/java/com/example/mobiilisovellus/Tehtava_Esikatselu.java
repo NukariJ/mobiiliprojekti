@@ -1,14 +1,25 @@
 package com.example.mobiilisovellus;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.ArrayAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Tehtava_Esikatselu extends AppCompatActivity  {
 
+    private static final int MY_REQUEST_CODE = 1;
+
+    ArrayAdapter<String> adapter;
+    ArrayList<String> list = new ArrayList<>();
+    ListView listView;
     TextView missionHeadline;
     //Button statebtn;
     //String str;
@@ -37,9 +48,6 @@ public View.OnClickListener buttonClickListener = new View.OnClickListener() {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.subTask:
-                startActivity(new Intent(Tehtava_Esikatselu.this, Alitehtava_Esikatselu.class));
-                break;
             case R.id.returnButton:
                 startActivity(new Intent(Tehtava_Esikatselu.this, MainActivity.class));
                 break;
@@ -47,13 +55,28 @@ public View.OnClickListener buttonClickListener = new View.OnClickListener() {
                 startActivity(new Intent(Tehtava_Esikatselu.this, Lisaa_Tehtava.class));
                 break;
             case R.id.addSubtask:
-                startActivity(new Intent(Tehtava_Esikatselu.this, Lisaa_Alitehtava.class));
+                Intent intent = new Intent(Tehtava_Esikatselu.this, Lisaa_Alitehtava.class);
+                startActivityForResult(intent, MY_REQUEST_CODE);
                 break;
 
         }
 
     }
 };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == MY_REQUEST_CODE){
+            if (resultCode == RESULT_OK){
+                String subtaskname = data.getStringExtra("keyName");
+
+                list.add(subtaskname);
+                adapter.notifyDataSetChanged();
+            }
+        }
+    }
 
    /*public void buttonState()            //Määrittää suoritspainikkeen värin ja tekstin
    {
