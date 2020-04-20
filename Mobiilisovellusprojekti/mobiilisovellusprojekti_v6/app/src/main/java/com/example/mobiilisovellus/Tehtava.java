@@ -9,13 +9,15 @@ public class Tehtava implements Serializable {
     //Tehtäväluokka
 
     private String nimi;
+    private String kuvaus;
     private String paivamaara;
     private double suoritettu;  //paljonko tehtävästä on suoritettu
     private ArrayList<String> aliTehtava; //alitehtävät tallennetaan tänne, toi <String> paikalle laitetaan alitehtävä luokka
     private Boolean vanhentunut;  //onko tehtävä vanhentunut vai ei?
 
-    public Tehtava(String n, String d, int p) {
+    public Tehtava(String n, String k,String d, int p) {
         this.nimi = n;
+        this.kuvaus = k;
         this.paivamaara = d;
         this.suoritettu = p;
         this.vanhentunut = false;
@@ -46,6 +48,12 @@ public class Tehtava implements Serializable {
     public void setSuoritettu(double suoritettu) {
         this.suoritettu = suoritettu;
     }
+
+    public void setKuvaus(String kuvaus) {this.kuvaus = kuvaus;}                        //Tehtävä kuvauksien getit ja setit
+    public String getKuvaus(){return kuvaus;}
+
+
+
 
     /*public ArrayList getAliTehtava() {
         return aliTehtava;

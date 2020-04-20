@@ -12,7 +12,18 @@
         app:layout_constraintTop_toTopOf="parent"
         android:orientation="vertical"
         >
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="MobileManager"
+            android:paddingLeft="10dp"
+            android:gravity="center"
+            android:textSize="30dp"
+            android:background="#8BC34A"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -21,14 +32,17 @@
                 android:id="@+id/LisaaNappi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="nappi"
+                android:text="+"
+                android:textSize="25dp"
+                android:textStyle="bold"
                 android:onClick="lisaaTehtava"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Lisää tehtävä"
-                android:textAlignment="center"
+                android:textSize="25dp"
+                android:layout_marginLeft="10dp"
                 android:id="@+id/lisaaTeksti"/>
 
         </LinearLayout>
