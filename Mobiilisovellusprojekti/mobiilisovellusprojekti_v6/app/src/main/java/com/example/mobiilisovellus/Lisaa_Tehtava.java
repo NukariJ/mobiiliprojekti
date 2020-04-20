@@ -1,15 +1,18 @@
 package com.example.mobiilisovellus;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-
-import com.google.gson.Gson;
+import android.widget.TextView;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class Lisaa_Tehtava extends AppCompatActivity  implements View.OnClickListener {
@@ -22,36 +25,50 @@ public class Lisaa_Tehtava extends AppCompatActivity  implements View.OnClickLis
         setContentView(R.layout.activity_lisaa_tehtava);
         findViewById(R.id.saveTask).setOnClickListener(this);
         findViewById(R.id.backButton).setOnClickListener(this);
+
+
+
     }
 
 
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onClick(View view) {                        //Lähettää tehtävän nimen eteenpäin
         if (view.getId() == R.id.saveTask) {
-            saveTasks();
+            Intent resultIntent = new Intent();
+
+            try{
+                EditText aika = findViewById(R.id.taskDuration);
+                int tehtavanKesto = Integer.parseInt(aika.getText().toString());
+
+
+
+                TextView tehtavaNimi = findViewById(R.id.addTaskname);
+                String nimi = tehtavaNimi.getText().toString();
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+
+                Tehtava t = new Tehtava(nimi,LocalDateTime.now().plusDays(tehtavanKesto).format(formatter),0);
+                resultIntent.putExtra("LisattyTehtava", t);
+                setResult(Activity.RESULT_OK, resultIntent);
+                finish();
+
+
+            }catch (Exception e){
+                e.printStackTrace();
+
+                //tähän vaikka dialogi epäonnistumiselle
+            }
+
+
+
         }
         if(view.getId() == R.id.backButton) {
             startActivity(new Intent(Lisaa_Tehtava.this, Tehtava_Esikatselu.class));
         }
     }
 
-
-    private void saveTasks() {
-        EditText headline = (EditText) findViewById(R.id.addTaskname);
-        String headlineMessage = headline.getText().toString();
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(headlineMessage);
-        editor.putString("task list",json);
-        editor.apply();
-
-        /*EditText headline = (EditText) findViewById(R.id.addTaskname);
-        String headlineMessage = headline.getText().toString();
-        Intent intent = new Intent();
-        intent.putExtra("LisattyTehtava", headlineMessage);
-        setResult(Activity.RESULT_OK, intent);
-        finish();*/
-    }
 
 }
