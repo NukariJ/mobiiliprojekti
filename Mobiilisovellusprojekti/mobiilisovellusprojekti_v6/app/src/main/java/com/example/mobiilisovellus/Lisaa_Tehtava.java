@@ -12,8 +12,7 @@ import android.widget.EditText;
 import com.google.gson.Gson;
 
 
-public class Lisaa_Tehtava extends AppCompatActivity  implements View.OnClickListener {
-
+public class Lisaa_Tehtava extends AppCompatActivity implements View.OnClickListener  {
 
 
     @Override
@@ -28,7 +27,7 @@ public class Lisaa_Tehtava extends AppCompatActivity  implements View.OnClickLis
     @Override
     public void onClick(View view) {                        //Lähettää tehtävän nimen eteenpäin
         if (view.getId() == R.id.saveTask) {
-            saveTasks();
+            //saveTasks();
         }
         if(view.getId() == R.id.backButton) {
             startActivity(new Intent(Lisaa_Tehtava.this, Tehtava_Esikatselu.class));
