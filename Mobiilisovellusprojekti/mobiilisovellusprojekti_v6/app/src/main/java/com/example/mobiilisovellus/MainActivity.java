@@ -155,15 +155,15 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
 
         // tällä voi lisätä tehtävän  napista testausta varten
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        tAdapter.add(new Tehtava("Juo toinen",LocalDateTime.now().plusMinutes(1).format(formatter),60));
+      //  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+      //  tAdapter.add(new Tehtava("Juo toinen",LocalDateTime.now().plusMinutes(1).format(formatter),60));
 
 
 
         // Avaa TehtäväOsioPäänäkymän
 
-        // Intent intent = new Intent(this,TehtavaOsioPaanakyma.class);
-        // startActivityForResult(intent,palautusKoodi);
+         Intent intent = new Intent(MainActivity.this,Lisaa_Tehtava.class);
+         startActivityForResult(intent,palautusKoodi);
 
     }
 
