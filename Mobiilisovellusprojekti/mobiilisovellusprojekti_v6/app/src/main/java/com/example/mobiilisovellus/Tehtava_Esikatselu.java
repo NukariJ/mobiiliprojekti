@@ -43,14 +43,18 @@ public class Tehtava_Esikatselu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tehtava_esikatselu);
+
+        //Hakee tiedot MainActivitystä
         Intent intent = getIntent();
         String name = intent.getStringExtra("NAME");
         String info = intent.getStringExtra("DESCRIPTION");
-         //str = getIntent().getStringExtra("msg");
         String date = intent.getStringExtra("DATE");
+
         findViewById(R.id.addSubtask).setOnClickListener(buttonClickListener);
         findViewById(R.id.returnButton).setOnClickListener(buttonClickListener);
         findViewById(R.id.editButton).setOnClickListener(buttonClickListener);
+
+        //Tehtävien tiedot
         taskName = findViewById(R.id.taskName);
         taskInfo = findViewById(R.id.taskDescription);
         taskDate = findViewById(R.id.timeSet);

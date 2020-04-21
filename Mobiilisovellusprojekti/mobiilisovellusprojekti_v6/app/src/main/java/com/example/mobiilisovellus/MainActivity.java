@@ -72,7 +72,8 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
                 Intent goToIntent = new Intent(MainActivity.this,Tehtava_Esikatselu.class);
                 Bundle bundle = new Bundle();
                 try {
-                    //bundle.putSerializable("TehtavaTiedot",tehtavaLista.get(indexi).getNimi());
+
+                    //Tiedot jotka siirretään Tehtava_Esikatselu luokkaan
                     goToIntent.putExtra("NAME",tehtavaLista.get(position).getNimi());
                     goToIntent.putExtra("DESCRIPTION",tehtavaLista.get(position).getKuvaus());
                     goToIntent.putExtra("DATE",tehtavaLista.get(position).getPaivamaara());
