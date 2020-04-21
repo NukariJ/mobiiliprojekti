@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -28,6 +29,7 @@ public class Tehtava_Esikatselu extends AppCompatActivity {
 
     private static final int MY_REQUEST_CODE = 1;
 
+    private int valinta = -1;
     private ArrayList<Alitehtava> alitehtavaList;
     private AlitehtavaAdapter atAdapter;
     private ListView listView;
@@ -63,6 +65,22 @@ public class Tehtava_Esikatselu extends AppCompatActivity {
             atAdapter = new AlitehtavaAdapter(this,alitehtavaList);
             listView.setAdapter(atAdapter);
 
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l){
+
+                    valinta = position;
+                    Intent goToIntent = new Intent(Tehtava_Esikatselu.this,Alitehtava_Esikatselu.class);
+                    Bundle bundle = new Bundle();
+
+                    try {
+                        goToIntent.putExtra("AT_NAME",alitehtavaList.get(position).getAlitehtavannimi());
+                        goToIntent.putExtra("AT_DESCRIPTION",alitehtavaList.get(position).getAlitehtavankuvaus());
+                        startActivity(goToIntent);
+                        }
+                    catch (Exception e) { e.printStackTrace(); }
+                 }
+         });
 }
 
 
@@ -81,7 +99,6 @@ public View.OnClickListener buttonClickListener = new View.OnClickListener() {
                 Intent intent = new Intent(Tehtava_Esikatselu.this, Lisaa_Alitehtava.class);
                 startActivityForResult(intent, MY_REQUEST_CODE);
                 break;
-
         }
 
     }

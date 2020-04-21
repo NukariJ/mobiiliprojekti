@@ -54,12 +54,6 @@
         android:layout_height="60dp"
         android:text="Tehtävän suorittamisaika (Päivissä):"
         android:textSize="20dp"/>
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:text=""/>
         </LinearLayout>
 
     <TextView
@@ -132,7 +126,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:textSize="25dp"
-                android:text="75%"/>
+                android:text="0%"/>
         </LinearLayout>
 
         <LinearLayout
