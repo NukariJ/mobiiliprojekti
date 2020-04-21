@@ -28,6 +28,8 @@ import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -42,7 +44,8 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
     private ArrayList<EventDay> kalenteriLista;
     private ListView tehtavaListView;
     private TehtavaAdapter tAdapter;
-    private int palautusKoodi = 420;
+    private int palautusKoodiLisaaTehtava = 420;
+    private int palautusKoodiTarkastaTehtava = 666;
     private int valinta = -1;
     private ArrayList<Tehtava> tulosLista;
     private int indexi;
@@ -70,14 +73,20 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
 
                 valinta = position;
                 Intent goToIntent = new Intent(MainActivity.this,Tehtava_Esikatselu.class);
-                Bundle bundle = new Bundle();
                 try {
 
                     //Tiedot jotka siirretään Tehtava_Esikatselu luokkaan
                     goToIntent.putExtra("NAME",tehtavaLista.get(position).getNimi());
                     goToIntent.putExtra("DESCRIPTION",tehtavaLista.get(position).getKuvaus());
                     goToIntent.putExtra("DATE",tehtavaLista.get(position).getPaivamaara());
-                    startActivity(goToIntent);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("SUBTASKLIST", (Serializable) tehtavaLista.get(position).getAliTehtava());
+                    goToIntent.putExtra("BUNDLE", bundle);
+
+                    startActivityForResult(goToIntent,palautusKoodiTarkastaTehtava);
+
+
                 }catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -137,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
     public boolean onOptionsItemSelected(MenuItem item){
 
         // toiminnallisuus sivuvalikolle
-        // ihan vitun kesken vielä
+        // kesken vielä
 
         switch (item.getItemId()){
             case R.id.item1:
@@ -166,15 +175,15 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
 
         // tällä voi lisätä tehtävän  napista testausta varten
 
-      //  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-      //  tAdapter.add(new Tehtava("Juo toinen",LocalDateTime.now().plusMinutes(1).format(formatter),60));
+        //  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        //  tAdapter.add(new Tehtava("Juo toinen",LocalDateTime.now().plusMinutes(1).format(formatter),60));
 
 
 
         // Avaa TehtäväOsioPäänäkymän
 
-         Intent intent = new Intent(MainActivity.this,Lisaa_Tehtava.class);
-         startActivityForResult(intent,palautusKoodi);
+        Intent intent = new Intent(MainActivity.this,Lisaa_Tehtava.class);
+        startActivityForResult(intent,palautusKoodiLisaaTehtava);
 
     }
 
@@ -185,11 +194,30 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
 
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == palautusKoodi && resultCode == Activity.RESULT_OK)
+        if (requestCode == palautusKoodiLisaaTehtava && resultCode == Activity.RESULT_OK)
         {
             Tehtava saatuTehtava = (Tehtava) data.getSerializableExtra("LisattyTehtava");
             tAdapter.add(saatuTehtava);
         }
+
+        if (requestCode == palautusKoodiTarkastaTehtava && resultCode == Activity.RESULT_OK)
+        {
+
+            String id = (String) data.getStringExtra("ID");
+
+            for(Tehtava t : tehtavaLista) {
+
+                if(t.getPaivamaara().equals(id)) {
+
+                    Bundle bundle = data.getBundleExtra("RETURNBUNDLE");
+                    t.setAliTehtava((ArrayList<Alitehtava>) bundle.getSerializable("ReturnAlitehtava"));
+                }
+            }
+
+
+
+        }
+
     }
 
 

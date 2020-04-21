@@ -12,7 +12,7 @@ public class Tehtava implements Serializable {
     private String kuvaus;
     private String paivamaara;
     private double suoritettu;  //paljonko tehtävästä on suoritettu
-    private ArrayList<String> aliTehtava; //alitehtävät tallennetaan tänne, toi <String> paikalle laitetaan alitehtävä luokka
+    private ArrayList<Alitehtava> aliTehtava; //alitehtävät tallennetaan tänne
     private Boolean vanhentunut;  //onko tehtävä vanhentunut vai ei?
 
     public Tehtava(String n, String k,String d, int p) {
@@ -22,7 +22,7 @@ public class Tehtava implements Serializable {
         this.suoritettu = p;
         this.vanhentunut = false;
         aliTehtava = new ArrayList<>();
-        aliTehtava.add("testi");
+
     }
 
     public String getNimi() {
@@ -49,20 +49,17 @@ public class Tehtava implements Serializable {
         this.suoritettu = suoritettu;
     }
 
-    public void setKuvaus(String kuvaus) {this.kuvaus = kuvaus;}                        //Tehtävä kuvauksien getit ja setit
+    public void setKuvaus(String kuvaus) {this.kuvaus = kuvaus;}
+
     public String getKuvaus(){return kuvaus;}
 
-
-
-
-    /*public ArrayList getAliTehtava() {
+    public ArrayList<Alitehtava> getAliTehtava() {
         return aliTehtava;
     }
 
-    public void setAliTehtava(ArrayList aliTehtava) {
-       this.aliTehtava = aliTehtava;
+    public void setAliTehtava(ArrayList<Alitehtava> aliTehtava) {
+        this.aliTehtava = aliTehtava;
     }
-    */
 
     public Boolean getVanhentunut() {
         return vanhentunut;

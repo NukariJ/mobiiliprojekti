@@ -6,14 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,10 +27,9 @@ public class Tehtava_Esikatselu extends AppCompatActivity {
     TextView taskName;
     TextView taskInfo;
     TextView taskDate;
-
+    private String date;
     private static final int MY_REQUEST_CODE = 1;
 
-    private int valinta = -1;
     private ArrayList<Alitehtava> alitehtavaList;
     private AlitehtavaAdapter atAdapter;
     private ListView listView;
@@ -37,16 +37,22 @@ public class Tehtava_Esikatselu extends AppCompatActivity {
     //Button statebtn;
     //String str;
 
-        @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tehtava_esikatselu);
+
+        alitehtavaList = new ArrayList<>();
 
         //Hakee tiedot MainActivitystä
         Intent intent = getIntent();
         String name = intent.getStringExtra("NAME");
         String info = intent.getStringExtra("DESCRIPTION");
-        String date = intent.getStringExtra("DATE");
+        date = intent.getStringExtra("DATE");
+
+        Bundle bundle;
+        bundle = intent.getBundleExtra("BUNDLE");
+        alitehtavaList = (ArrayList<Alitehtava>) bundle.getSerializable("SUBTASKLIST");
 
         findViewById(R.id.addSubtask).setOnClickListener(buttonClickListener);
         findViewById(R.id.returnButton).setOnClickListener(buttonClickListener);
@@ -60,49 +66,33 @@ public class Tehtava_Esikatselu extends AppCompatActivity {
         taskInfo.setText(info);
         taskDate.setText(date);
 
-            alitehtavaList = new ArrayList<>();
-            listView = findViewById(R.id.subTaskList);
-            atAdapter = new AlitehtavaAdapter(this,alitehtavaList);
-            listView.setAdapter(atAdapter);
-
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l){
-
-                    valinta = position;
-                    Intent goToIntent = new Intent(Tehtava_Esikatselu.this,Alitehtava_Esikatselu.class);
-                    Bundle bundle = new Bundle();
-
-                    try {
-                        goToIntent.putExtra("AT_NAME",alitehtavaList.get(position).getAlitehtavannimi());
-                        goToIntent.putExtra("AT_DESCRIPTION",alitehtavaList.get(position).getAlitehtavankuvaus());
-                        startActivity(goToIntent);
-                        }
-                    catch (Exception e) { e.printStackTrace(); }
-                 }
-         });
-}
-
-
-
-public View.OnClickListener buttonClickListener = new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.returnButton:
-                startActivity(new Intent(Tehtava_Esikatselu.this, MainActivity.class));
-                break;
-            case R.id.editButton:
-                startActivity(new Intent(Tehtava_Esikatselu.this, Lisaa_Tehtava.class));
-                break;
-            case R.id.addSubtask:
-                Intent intent = new Intent(Tehtava_Esikatselu.this, Lisaa_Alitehtava.class);
-                startActivityForResult(intent, MY_REQUEST_CODE);
-                break;
-        }
+        listView = findViewById(R.id.subTaskList);
+        atAdapter = new AlitehtavaAdapter(this,alitehtavaList);
+        listView.setAdapter(atAdapter);
 
     }
-};
+
+
+
+    public View.OnClickListener buttonClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.returnButton:
+                    sendDataBackToMain();
+                    break;
+                case R.id.editButton:
+                    startActivity(new Intent(Tehtava_Esikatselu.this, Lisaa_Tehtava.class));
+                    break;
+                case R.id.addSubtask:
+                    Intent intent = new Intent(Tehtava_Esikatselu.this, Lisaa_Alitehtava.class);
+                    startActivityForResult(intent, MY_REQUEST_CODE);
+                    break;
+
+            }
+
+        }
+    };
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -124,6 +114,18 @@ public View.OnClickListener buttonClickListener = new View.OnClickListener() {
 
    }*/
 
+
+    private void sendDataBackToMain() {
+
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("ReturnAlitehtava", (Serializable) alitehtavaList);
+        intent.putExtra("RETURNBUNDLE", bundle);
+        intent.putExtra("ID",date);
+        Log.d("ID testi",date);
+        setResult(Activity.RESULT_OK,intent);
+        finish();
+    }
 
 }
 
