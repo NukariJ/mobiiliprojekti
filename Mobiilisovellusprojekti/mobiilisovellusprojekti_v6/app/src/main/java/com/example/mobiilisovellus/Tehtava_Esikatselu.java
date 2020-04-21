@@ -6,15 +6,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+<<<<<<< HEAD
 import android.widget.ListView;
+=======
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+>>>>>>> master
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tehtava_Esikatselu extends AppCompatActivity  {
+import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
+public class Tehtava_Esikatselu extends AppCompatActivity {
+
+    TextView taskName;
+    TextView taskInfo;
+    TextView taskDate;
+
+<<<<<<< HEAD
     private static final int MY_REQUEST_CODE = 1;
 
     ArrayAdapter<String> adapter;
@@ -23,22 +37,26 @@ public class Tehtava_Esikatselu extends AppCompatActivity  {
     TextView missionHeadline;
     //Button statebtn;
     //String str;
+=======
+>>>>>>> master
         @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tehtava_esikatselu);
-
-        //str = getIntent().getStringExtra("msg");
-
+        Intent intent = getIntent();
+        String name = intent.getStringExtra("NAME");
+        String info = intent.getStringExtra("DESCRIPTION");
+         //str = getIntent().getStringExtra("msg");
+        String date = intent.getStringExtra("DATE");
         findViewById(R.id.addSubtask).setOnClickListener(buttonClickListener);
         findViewById(R.id.returnButton).setOnClickListener(buttonClickListener);
         findViewById(R.id.editButton).setOnClickListener(buttonClickListener);
-        //statebtn = findViewById(R.id.setStateButton).setOnTouchListener();
-        missionHeadline = findViewById(R.id.taskName);
-
-       // missionHeadline.setText(getIntent().getStringExtra("msg"));     //Tarkoitus vastaanottaa tehtävän otsikon nimi
-
-
+        taskName = findViewById(R.id.taskName);
+        taskInfo = findViewById(R.id.taskDescription);
+        taskDate = findViewById(R.id.timeSet);
+        taskName.setText(name);
+        taskInfo.setText(info);
+        taskDate.setText(date);
 
 }
 

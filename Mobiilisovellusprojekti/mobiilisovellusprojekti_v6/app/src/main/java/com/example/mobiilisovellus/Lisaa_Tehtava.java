@@ -15,8 +15,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
-public class Lisaa_Tehtava extends AppCompatActivity  implements View.OnClickListener {
-
+public class Lisaa_Tehtava extends AppCompatActivity implements View.OnClickListener  {
 
 
     @Override
@@ -36,13 +35,15 @@ public class Lisaa_Tehtava extends AppCompatActivity  implements View.OnClickLis
     @Override
     public void onClick(View view) {                        //Lähettää tehtävän nimen eteenpäin
         if (view.getId() == R.id.saveTask) {
+
             Intent resultIntent = new Intent();
 
             try{
                 EditText aika = findViewById(R.id.taskDuration);
                 int tehtavanKesto = Integer.parseInt(aika.getText().toString());
 
-
+                EditText tehtavanKuvaus = findViewById(R.id.taskDescription);
+                String kuvaus = tehtavanKuvaus.getText().toString();
 
                 TextView tehtavaNimi = findViewById(R.id.addTaskname);
                 String nimi = tehtavaNimi.getText().toString();
@@ -50,7 +51,7 @@ public class Lisaa_Tehtava extends AppCompatActivity  implements View.OnClickLis
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 
-                Tehtava t = new Tehtava(nimi,LocalDateTime.now().plusDays(tehtavanKesto).format(formatter),0);
+                Tehtava t = new Tehtava(nimi,kuvaus,LocalDateTime.now().plusDays(tehtavanKesto).format(formatter),0);
                 resultIntent.putExtra("LisattyTehtava", t);
                 setResult(Activity.RESULT_OK, resultIntent);
                 finish();

@@ -69,7 +69,17 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
                 //valitaan listalta tehtävä jota halutaan tarkastella lähemmin
 
                 valinta = position;
-
+                Intent goToIntent = new Intent(MainActivity.this,Tehtava_Esikatselu.class);
+                Bundle bundle = new Bundle();
+                try {
+                    //bundle.putSerializable("TehtavaTiedot",tehtavaLista.get(indexi).getNimi());
+                    goToIntent.putExtra("NAME",tehtavaLista.get(position).getNimi());
+                    goToIntent.putExtra("DESCRIPTION",tehtavaLista.get(position).getKuvaus());
+                    goToIntent.putExtra("DATE",tehtavaLista.get(position).getPaivamaara());
+                    startActivity(goToIntent);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
                 // lisää tominnallisuus tehtävien tarkasteluun
             }
         });

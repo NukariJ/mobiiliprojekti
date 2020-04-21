@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Lisaa_Alitehtava extends AppCompatActivity implements View.OnClickListener {
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lisaa_alitehtava);
 
         findViewById(R.id.saveSubTask).setOnClickListener(this);
@@ -30,6 +30,7 @@ public class Lisaa_Alitehtava extends AppCompatActivity implements View.OnClickL
             setResult(RESULT_OK, intent);
             finish();
         }
+
 
     }
 
