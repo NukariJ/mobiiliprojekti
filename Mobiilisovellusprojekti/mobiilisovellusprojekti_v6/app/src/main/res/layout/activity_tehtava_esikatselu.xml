@@ -43,9 +43,6 @@
             android:layout_height="wrap_content"
             android:text="KESKEN"/>
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="2dp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -64,10 +61,7 @@
             android:textSize="20dp"
             android:text=""/>
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="5dp" />
+
     <TextView
         android:id="@+id/taskDescription"
         android:layout_width="match_parent"
@@ -103,15 +97,14 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="135dp"
             android:orientation="vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:fillViewport="true"
             android:gravity="center">
             <ListView
-                android:id="@+id/subTask"
+                android:id="@+id/subTaskList"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="10dp"
@@ -120,11 +113,7 @@
                 android:gravity="center_vertical"
                 android:textSize="20dp"/>
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="20dp"/>
+        </ScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -145,10 +134,7 @@
                 android:textSize="25dp"
                 android:text="75%"/>
         </LinearLayout>
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="20dp"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

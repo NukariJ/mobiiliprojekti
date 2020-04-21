@@ -20,9 +20,9 @@ import java.util.List;
 public class AlitehtavaAdapter extends ArrayAdapter<Alitehtava> {
 
     private Context mContext;
-    private List<Tehtava> alitehtavaList;
+    private List<Alitehtava> alitehtavaList;
 
-    public TehtavaAdapter(@NonNull Context context, @SuppressLint("SupportAnnotationUsage") @LayoutRes ArrayList<Tehtava> list) {
+    public AlitehtavaAdapter(@NonNull Context context, @SuppressLint("SupportAnnotationUsage") @LayoutRes ArrayList<Alitehtava> list) {
         super(context, 0, list);
         mContext = context;
         alitehtavaList = list;
@@ -35,12 +35,15 @@ public class AlitehtavaAdapter extends ArrayAdapter<Alitehtava> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listItem = convertView;
         if (listItem == null)
-            listItem = LayoutInflater.from(mContext).inflate(R.layout.list_item, parent, false);
+            listItem = LayoutInflater.from(mContext).inflate(R.layout.list_item2, parent, false);
 
         Alitehtava current = alitehtavaList.get(position);
 
-        TextView nimi = (TextView) listItem.findViewById(R.id.textView_nimi);
-        nimi.setText(current.getAlitehtavannimi());
+        TextView alitehtavannimi = (TextView) listItem.findViewById(R.id.textView_nimi);
+        alitehtavannimi.setText(current.getAlitehtavannimi());
+
+        TextView alitehtavankuvaus = (TextView) listItem.findViewById(R.id.textView_kuvaus);
+        alitehtavankuvaus.setText(current.getAlitehtavankuvaus());
 
         return listItem;
     }

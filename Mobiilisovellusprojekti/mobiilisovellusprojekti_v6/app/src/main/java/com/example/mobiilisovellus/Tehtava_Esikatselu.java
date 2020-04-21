@@ -3,15 +3,13 @@ package com.example.mobiilisovellus;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-<<<<<<< HEAD
 import android.widget.ListView;
-=======
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
->>>>>>> master
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
 
@@ -28,17 +26,15 @@ public class Tehtava_Esikatselu extends AppCompatActivity {
     TextView taskInfo;
     TextView taskDate;
 
-<<<<<<< HEAD
     private static final int MY_REQUEST_CODE = 1;
 
-    ArrayAdapter<String> adapter;
-    ArrayList<String> list = new ArrayList<>();
-    ListView listView;
+    private ArrayList<Alitehtava> alitehtavaList;
+    private AlitehtavaAdapter atAdapter;
+    private ListView listView;
     TextView missionHeadline;
     //Button statebtn;
     //String str;
-=======
->>>>>>> master
+
         @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +57,11 @@ public class Tehtava_Esikatselu extends AppCompatActivity {
         taskName.setText(name);
         taskInfo.setText(info);
         taskDate.setText(date);
+
+            alitehtavaList = new ArrayList<>();
+            listView = findViewById(R.id.subTaskList);
+            atAdapter = new AlitehtavaAdapter(this,alitehtavaList);
+            listView.setAdapter(atAdapter);
 
 }
 
@@ -90,13 +91,10 @@ public View.OnClickListener buttonClickListener = new View.OnClickListener() {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == MY_REQUEST_CODE){
-            if (resultCode == RESULT_OK){
-                String subtaskname = data.getStringExtra("keyName");
-
-                list.add(subtaskname);
-                adapter.notifyDataSetChanged();
-            }
+        if (requestCode == MY_REQUEST_CODE && resultCode == Activity.RESULT_OK)
+        {
+            Alitehtava saatuAlitehtava = (Alitehtava) data.getSerializableExtra("key name");
+            atAdapter.add(saatuAlitehtava);
         }
     }
 
