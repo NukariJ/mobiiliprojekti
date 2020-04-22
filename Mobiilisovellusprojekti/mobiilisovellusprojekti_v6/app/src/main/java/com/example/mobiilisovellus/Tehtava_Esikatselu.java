@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -27,8 +28,11 @@ public class Tehtava_Esikatselu extends AppCompatActivity {
     TextView taskName;
     TextView taskInfo;
     TextView taskDate;
-    private String date;
+    TextView taskPercent;
+
+    private Tehtava tarkasteltavaTehtava;
     private static final int MY_REQUEST_CODE = 1;
+    private static final int MY_REQUEST_CODE2 = 2;
 
     private ArrayList<Alitehtava> alitehtavaList;
     private AlitehtavaAdapter atAdapter;
@@ -46,13 +50,14 @@ public class Tehtava_Esikatselu extends AppCompatActivity {
 
         //Hakee tiedot MainActivitystä
         Intent intent = getIntent();
-        String name = intent.getStringExtra("NAME");
-        String info = intent.getStringExtra("DESCRIPTION");
-        date = intent.getStringExtra("DATE");
+        tarkasteltavaTehtava = (Tehtava) intent.getSerializableExtra("SiirrettavaTehtava");
+        tarkasteltavaTehtava.laskeSuoritusProsentti();
+        String name = tarkasteltavaTehtava.getNimi();
+        String info = tarkasteltavaTehtava.getKuvaus();
+        String date = tarkasteltavaTehtava.getPaivamaara();
+        double taskP = tarkasteltavaTehtava.getSuoritettu();
 
-        Bundle bundle;
-        bundle = intent.getBundleExtra("BUNDLE");
-        alitehtavaList = (ArrayList<Alitehtava>) bundle.getSerializable("SUBTASKLIST");
+        alitehtavaList = tarkasteltavaTehtava.getAliTehtava();
 
         findViewById(R.id.addSubtask).setOnClickListener(buttonClickListener);
         findViewById(R.id.returnButton).setOnClickListener(buttonClickListener);
@@ -62,13 +67,31 @@ public class Tehtava_Esikatselu extends AppCompatActivity {
         taskName = findViewById(R.id.taskName);
         taskInfo = findViewById(R.id.taskDescription);
         taskDate = findViewById(R.id.timeSet);
+        taskPercent = findViewById(R.id.percentView);
         taskName.setText(name);
         taskInfo.setText(info);
         taskDate.setText(date);
+        taskPercent.setText(taskP+" %");
 
         listView = findViewById(R.id.subTaskList);
         atAdapter = new AlitehtavaAdapter(this,alitehtavaList);
         listView.setAdapter(atAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l){
+
+
+                Intent goToIntent = new Intent(Tehtava_Esikatselu.this,Alitehtava_Esikatselu.class);
+
+                try {
+                    goToIntent.putExtra("MOVEDSUBTASK",atAdapter.getItem(position));
+                    startActivityForResult(goToIntent, MY_REQUEST_CODE2);
+                }
+                catch (Exception e) { e.printStackTrace(); }
+            }
+        });
+
 
     }
 
@@ -102,7 +125,25 @@ public class Tehtava_Esikatselu extends AppCompatActivity {
         {
             Alitehtava saatuAlitehtava = (Alitehtava) data.getSerializableExtra("key name");
             atAdapter.add(saatuAlitehtava);
+            tarkasteltavaTehtava.laskeSuoritusProsentti();
+            taskPercent.setText(tarkasteltavaTehtava.getSuoritettu()+" %");
         }
+        if (requestCode == MY_REQUEST_CODE2 && resultCode == Activity.RESULT_OK)
+        {
+            Alitehtava saatuAlitehtava = (Alitehtava) data.getSerializableExtra("R_SUBTASK");
+            for(Alitehtava a : alitehtavaList) {
+                if(a.getAlitehtava_ID().equals(saatuAlitehtava.getAlitehtava_ID())) {
+                    a.setAlitehtavannimi(saatuAlitehtava.getAlitehtavannimi());
+                    a.setAlitehtavankuvaus(saatuAlitehtava.getAlitehtavankuvaus());
+                    a.setSuoritettu(saatuAlitehtava.isSuoritettu());
+                }
+            }
+            tarkasteltavaTehtava.laskeSuoritusProsentti();
+            taskPercent.setText(tarkasteltavaTehtava.getSuoritettu()+" %");
+
+        }
+
+
     }
 
    /*public void buttonState()            //Määrittää suoritspainikkeen värin ja tekstin
@@ -118,11 +159,7 @@ public class Tehtava_Esikatselu extends AppCompatActivity {
     private void sendDataBackToMain() {
 
         Intent intent = new Intent();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("ReturnAlitehtava", (Serializable) alitehtavaList);
-        intent.putExtra("RETURNBUNDLE", bundle);
-        intent.putExtra("ID",date);
-        Log.d("ID testi",date);
+        intent.putExtra("PalautusTehtava",tarkasteltavaTehtava);
         setResult(Activity.RESULT_OK,intent);
         finish();
     }

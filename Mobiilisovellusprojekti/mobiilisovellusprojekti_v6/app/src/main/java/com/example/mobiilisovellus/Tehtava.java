@@ -10,8 +10,10 @@ public class Tehtava implements Serializable {
 
     private String nimi;
     private String kuvaus;
-    private String paivamaara;
-    private double suoritettu;  //paljonko tehtävästä on suoritettu
+    private String paivamaara;  // tehtavan päättymis päivä ja kellonaika
+    private String id;          // Tehtavan tunniste tieto
+    private double suoritettu;  //paljonko tehtävästä on suoritettu (päätehtävä + alitehtävät prosentteina)
+    private boolean paaTehtavaSuoritettu;
     private ArrayList<Alitehtava> aliTehtava; //alitehtävät tallennetaan tänne
     private Boolean vanhentunut;  //onko tehtävä vanhentunut vai ei?
 
@@ -21,6 +23,7 @@ public class Tehtava implements Serializable {
         this.paivamaara = d;
         this.suoritettu = p;
         this.vanhentunut = false;
+        this.paaTehtavaSuoritettu = false;
         aliTehtava = new ArrayList<>();
 
     }
@@ -68,4 +71,48 @@ public class Tehtava implements Serializable {
     public void setVanhentunut(Boolean vanhentunut) {
         this.vanhentunut = vanhentunut;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public boolean isPaaTehtavaSuoritettu() {
+        return paaTehtavaSuoritettu;
+    }
+
+    public void setPaaTehtavaSuoritettu(boolean paaTehtavaSuoritettu) {
+        this.paaTehtavaSuoritettu = paaTehtavaSuoritettu;
+    }
+
+    public void laskeSuoritusProsentti() {
+
+        double suorituksia = 0;
+
+        if(aliTehtava.isEmpty() == false) {
+
+           for(Alitehtava t : aliTehtava) {
+
+               if (t.isSuoritettu() == true) {
+                    suorituksia++;
+               }
+           }
+
+            if(paaTehtavaSuoritettu == true) {
+                suorituksia++;
+            }
+
+            this.suoritettu = suorituksia/(aliTehtava.size() + 1);
+            this.suoritettu *= 100;
+
+        }else {
+            if(paaTehtavaSuoritettu == true) {
+                this.suoritettu = 100;
+            }
+        }
+    }
+
 }

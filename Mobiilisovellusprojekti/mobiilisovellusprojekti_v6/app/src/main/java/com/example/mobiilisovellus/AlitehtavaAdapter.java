@@ -2,6 +2,7 @@ package com.example.mobiilisovellus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,8 @@ public class AlitehtavaAdapter extends ArrayAdapter<Alitehtava> {
         View listItem = convertView;
         if (listItem == null)
             listItem = LayoutInflater.from(mContext).inflate(R.layout.list_item2, parent, false);
+
+        parent.setBackgroundColor(Color.GREEN);
 
         Alitehtava current = alitehtavaList.get(position);
 

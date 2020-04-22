@@ -75,14 +75,16 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
                 Intent goToIntent = new Intent(MainActivity.this,Tehtava_Esikatselu.class);
                 try {
 
-                    //Tiedot jotka siirretään Tehtava_Esikatselu luokkaan
-                    goToIntent.putExtra("NAME",tehtavaLista.get(position).getNimi());
-                    goToIntent.putExtra("DESCRIPTION",tehtavaLista.get(position).getKuvaus());
-                    goToIntent.putExtra("DATE",tehtavaLista.get(position).getPaivamaara());
 
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("SUBTASKLIST", (Serializable) tehtavaLista.get(position).getAliTehtava());
-                    goToIntent.putExtra("BUNDLE", bundle);
+                        goToIntent.putExtra("SiirrettavaTehtava", tAdapter.getItem(position));
+                    //Tiedot jotka siirretään Tehtava_Esikatselu luokkaan
+                  //  goToIntent.putExtra("NAME",tehtavaLista.get(position).getNimi());
+                 //   goToIntent.putExtra("DESCRIPTION",tehtavaLista.get(position).getKuvaus());
+                 //   goToIntent.putExtra("DATE",tehtavaLista.get(position).getPaivamaara());
+
+                //    Bundle bundle = new Bundle();
+                  //  bundle.putSerializable("SUBTASKLIST", (Serializable) tehtavaLista.get(position).getAliTehtava());
+                 //   goToIntent.putExtra("BUNDLE", bundle);
 
                     startActivityForResult(goToIntent,palautusKoodiTarkastaTehtava);
 
@@ -192,29 +194,33 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
 
         //TehtväPääosionäkymässä luotu tieto lisätään listalle
 
+        int i = -1;
+
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == palautusKoodiLisaaTehtava && resultCode == Activity.RESULT_OK)
         {
             Tehtava saatuTehtava = (Tehtava) data.getSerializableExtra("LisattyTehtava");
             tAdapter.add(saatuTehtava);
+
         }
 
         if (requestCode == palautusKoodiTarkastaTehtava && resultCode == Activity.RESULT_OK)
         {
 
-            String id = (String) data.getStringExtra("ID");
+            Tehtava palautettuTehtava = (Tehtava) data.getSerializableExtra("PalautusTehtava");
 
             for(Tehtava t : tehtavaLista) {
 
-                if(t.getPaivamaara().equals(id)) {
+                if(t.getId().equals(palautettuTehtava.getId())) {
 
-                    Bundle bundle = data.getBundleExtra("RETURNBUNDLE");
-                    t.setAliTehtava((ArrayList<Alitehtava>) bundle.getSerializable("ReturnAlitehtava"));
+                     i = tehtavaLista.indexOf(t);
+
                 }
             }
 
-
+            tAdapter.remove(tehtavaLista.get(i));
+            tAdapter.add(palautettuTehtava);
 
         }
 
@@ -288,7 +294,7 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
 
         // Lataa tehtävät sharedpreferenceistä
 
-        shref = MainActivity.this.getSharedPreferences("tehtavaObject", Context.MODE_PRIVATE);
+        shref = MainActivity.this.getSharedPreferences("tehtavaTallennus4", Context.MODE_PRIVATE);
         tehtavaLista = new ArrayList<>();
 
         try{

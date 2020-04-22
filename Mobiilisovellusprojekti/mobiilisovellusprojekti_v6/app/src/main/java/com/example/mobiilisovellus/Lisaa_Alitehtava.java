@@ -13,6 +13,8 @@ import android.content.Intent;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Random;
+
 public class Lisaa_Alitehtava extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class Lisaa_Alitehtava extends AppCompatActivity implements View.OnClickL
             String kuvaus = alitehtavankuvaus.getText().toString();
 
             Alitehtava at = new Alitehtava(nimi,kuvaus);
+            at.setAlitehtava_ID(nimi+ new Random(1000));
             resultIntent.putExtra("key name", at);
             setResult(Activity.RESULT_OK, resultIntent);
             finish();

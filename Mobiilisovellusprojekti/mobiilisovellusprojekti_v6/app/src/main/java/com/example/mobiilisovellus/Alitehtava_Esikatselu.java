@@ -2,6 +2,7 @@ package com.example.mobiilisovellus;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
         import android.os.Bundle;
@@ -13,9 +14,13 @@ public class Alitehtava_Esikatselu extends AppCompatActivity implements View.OnC
 
     TextView Subtaskname;
     TextView SubtaskDescription;
+    String name;
+    String info;
+    Alitehtava subTask;
+
 
     Button button2;
-    int buttonStatus = 0;
+    boolean buttonStatus = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +28,14 @@ public class Alitehtava_Esikatselu extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_alitehtava_esikatselu);
 
         Intent intent = getIntent();
-        String name = intent.getStringExtra("AT_NAME");
-        String info = intent.getStringExtra("AT_DESCRIPTION");
+
+        subTask = (Alitehtava) intent.getSerializableExtra("MOVEDSUBTASK");
+
+        name = subTask.getAlitehtavannimi();
+        info = subTask.getAlitehtavankuvaus();
+        buttonStatus = subTask.isSuoritettu();
+
+        setButtonStatus();
 
         Subtaskname = findViewById(R.id.SubtaskName);
         SubtaskDescription = findViewById(R.id.SubtaskDescription);
@@ -44,6 +55,15 @@ public class Alitehtava_Esikatselu extends AppCompatActivity implements View.OnC
             buttonState();
         }
         else if (v.getId() == R.id.returnButton){
+
+            Intent i = new Intent();
+
+            subTask.setSuoritettu(buttonStatus);
+
+            i.putExtra("R_SUBTASK",subTask);
+
+
+            setResult(Activity.RESULT_OK,i);
             finish();
         }
         else if(v.getId() == R.id.deleteTask){
@@ -54,15 +74,31 @@ public class Alitehtava_Esikatselu extends AppCompatActivity implements View.OnC
     private void buttonState() {
 
         button2 = findViewById(R.id.subTaskPercent);
-        if(buttonStatus == 0) {
+        if(buttonStatus == false) {
             button2.setBackgroundColor(Color.GREEN);
             button2.setText("VALMIS");
-            buttonStatus = 1;
+            buttonStatus = true;
         }
-        else if(buttonStatus == 1) {
+        else if(buttonStatus == true) {
             button2.setBackgroundColor(Color.LTGRAY);
             button2.setText("KESKEN");
-            buttonStatus = 0;
+            buttonStatus = false;
         }
+    }
+
+    private void setButtonStatus() {
+
+        button2 = findViewById(R.id.subTaskPercent);
+        if(buttonStatus == true) {
+            button2.setBackgroundColor(Color.GREEN);
+            button2.setText("VALMIS");
+
+        }
+        else if(buttonStatus == false) {
+            button2.setBackgroundColor(Color.LTGRAY);
+            button2.setText("KESKEN");
+
+        }
+
     }
 }

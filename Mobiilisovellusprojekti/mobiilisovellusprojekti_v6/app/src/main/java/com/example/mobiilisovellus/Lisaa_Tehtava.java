@@ -52,6 +52,7 @@ public class Lisaa_Tehtava extends AppCompatActivity implements View.OnClickList
 
 
                 Tehtava t = new Tehtava(nimi,kuvaus,LocalDateTime.now().plusDays(tehtavanKesto).format(formatter),0);
+                t.setId(LocalDateTime.now().format(formatter));
                 resultIntent.putExtra("LisattyTehtava", t);
                 setResult(Activity.RESULT_OK, resultIntent);
                 finish();

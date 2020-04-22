@@ -122,6 +122,7 @@
                 android:text="Suoritettu yhteensä:"
                 android:textSize="25dp"/>
             <TextView
+                android:id="@+id/percentView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
