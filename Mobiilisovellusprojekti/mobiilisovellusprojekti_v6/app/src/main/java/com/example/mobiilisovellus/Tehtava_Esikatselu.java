@@ -143,6 +143,14 @@ public class Tehtava_Esikatselu extends AppCompatActivity {
 
         }
 
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //päivittää listanäkymään muutokset
+                atAdapter.notifyDataSetChanged();
+            }
+        });
+
 
     }
 

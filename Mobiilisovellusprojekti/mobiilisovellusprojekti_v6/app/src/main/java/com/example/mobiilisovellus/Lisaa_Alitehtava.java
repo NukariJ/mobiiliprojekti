@@ -22,6 +22,7 @@ public class Lisaa_Alitehtava extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_lisaa_alitehtava);
 
         findViewById(R.id.saveSubTask).setOnClickListener(this);
+        findViewById(R.id.returnButton).setOnClickListener(this);
     }
 
     @Override
@@ -41,6 +42,10 @@ public class Lisaa_Alitehtava extends AppCompatActivity implements View.OnClickL
             at.setAlitehtava_ID(nimi+ new Random(1000));
             resultIntent.putExtra("key name", at);
             setResult(Activity.RESULT_OK, resultIntent);
+            finish();
+        }
+        if (v.getId() == R.id.returnButton){
+
             finish();
         }
 

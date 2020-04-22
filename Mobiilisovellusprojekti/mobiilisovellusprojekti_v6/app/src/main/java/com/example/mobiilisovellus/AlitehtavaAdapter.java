@@ -38,15 +38,23 @@ public class AlitehtavaAdapter extends ArrayAdapter<Alitehtava> {
         if (listItem == null)
             listItem = LayoutInflater.from(mContext).inflate(R.layout.list_item2, parent, false);
 
-        parent.setBackgroundColor(Color.GREEN);
+        //parent.setBackgroundColor(Color.GREEN);
 
         Alitehtava current = alitehtavaList.get(position);
+
+        if(current.isSuoritettu() == true) {
+            listItem.setBackgroundColor(Color.GREEN);
+        }
+
+        if(current.isSuoritettu() == false) {
+            listItem.setBackgroundColor(Color.TRANSPARENT);
+        }
 
         TextView alitehtavannimi = (TextView) listItem.findViewById(R.id.textView_nimi);
         alitehtavannimi.setText(current.getAlitehtavannimi());
 
-        TextView alitehtavankuvaus = (TextView) listItem.findViewById(R.id.textView_kuvaus);
-        alitehtavankuvaus.setText(current.getAlitehtavankuvaus());
+        //TextView alitehtavankuvaus = (TextView) listItem.findViewById(R.id.textView_kuvaus);
+        //alitehtavankuvaus.setText(current.getAlitehtavankuvaus());
 
         return listItem;
     }
