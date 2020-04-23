@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 public class Tehtava_Esikatselu extends AppCompatActivity {
 
+    public static final String EXTRA_MESSAGE = "com.example.mobiilisovellus.MESSAGE";
     TextView taskName;
     TextView taskInfo;
     TextView taskDate;
@@ -38,9 +39,7 @@ public class Tehtava_Esikatselu extends AppCompatActivity {
     private ArrayList<Alitehtava> alitehtavaList;
     private AlitehtavaAdapter atAdapter;
     private ListView listView;
-    TextView missionHeadline;
-    //Button statebtn;
-    //String str;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +62,7 @@ public class Tehtava_Esikatselu extends AppCompatActivity {
         findViewById(R.id.addSubtask).setOnClickListener(buttonClickListener);
         findViewById(R.id.returnButton).setOnClickListener(buttonClickListener);
         findViewById(R.id.editButton).setOnClickListener(buttonClickListener);
-
+        findViewById(R.id.deleteTask).setOnClickListener(buttonClickListener);
         //Tehtävien tiedot
         taskName = findViewById(R.id.taskName);
         taskInfo = findViewById(R.id.taskDescription);
@@ -103,7 +102,7 @@ public class Tehtava_Esikatselu extends AppCompatActivity {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.returnButton:
-                    sendDataBackToMain();
+                    sendDataBackToMain(1);
                     break;
                 case R.id.editButton:
                     Intent intent2 = new Intent(Tehtava_Esikatselu.this, Muokkaa_Tehtava.class);
@@ -116,10 +115,18 @@ public class Tehtava_Esikatselu extends AppCompatActivity {
                     startActivityForResult(intent, MY_REQUEST_CODE);
                     break;
 
+                    //Tapsan töherrys ---> Poista nappi
+                case R.id.deleteTask:
+                    sendDataBackToMain(0);
+                    break;
             }
 
         }
     };
+
+    //Tapsan töherrys ---> Poista tehtävä
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -168,19 +175,11 @@ public class Tehtava_Esikatselu extends AppCompatActivity {
 
     }
 
-   /*public void buttonState()            //Määrittää suoritspainikkeen värin ja tekstin
-   {
-       Button btn = findViewById(R.id.setStateButton);
-           btn.setBackgroundColor(Color.GREEN);
-           btn.setText("Valmis");
-           if(btn = btn.setBackgroundColor(Color.GREEN))
 
-   }*/
-
-
-    private void sendDataBackToMain() {
+    private void sendDataBackToMain(int poistokasky) {
 
         Intent intent = new Intent();
+        intent.putExtra("PoistaTehtava",poistokasky);
         intent.putExtra("PalautusTehtava",tarkasteltavaTehtava);
         setResult(Activity.RESULT_OK,intent);
         finish();

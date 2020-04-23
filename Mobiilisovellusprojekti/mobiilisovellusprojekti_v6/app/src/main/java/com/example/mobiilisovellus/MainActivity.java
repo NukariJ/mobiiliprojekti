@@ -13,6 +13,7 @@ import android.content.Intent;
 
 
 import android.content.SharedPreferences;
+import android.media.midi.MidiDeviceService;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
     private ArrayList<EventDay> kalenteriLista;
     private ListView tehtavaListView;
     private TehtavaAdapter tAdapter;
+    private int deleteNro;
     private int palautusKoodiLisaaTehtava = 420;
     private int palautusKoodiTarkastaTehtava = 666;
     private int valinta = -1;
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
 
         lataaTehtavat();
         lataaKalenteri();
+
 
 
 
@@ -89,12 +92,18 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
                     startActivityForResult(goToIntent,palautusKoodiTarkastaTehtava);
 
 
+
+
+
+
+
                 }catch (Exception e) {
                     e.printStackTrace();
                 }
                 // lisää tominnallisuus tehtävien tarkasteluun
             }
         });
+
 
 
 
@@ -171,7 +180,6 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
     }
 
 
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void lisaaTehtava(View view) {
 
@@ -188,6 +196,7 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
         startActivityForResult(intent,palautusKoodiLisaaTehtava);
 
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -207,24 +216,47 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
 
         if (requestCode == palautusKoodiTarkastaTehtava && resultCode == Activity.RESULT_OK)
         {
+            int poisto = data.getIntExtra("PoistaTehtava",1);
+            if(poisto == 0) {
+                Tehtava palautettuTehtava = (Tehtava) data.getSerializableExtra("PalautusTehtava");
 
+                for(Tehtava t : tehtavaLista) {
+
+                    if(t.getId().equals(palautettuTehtava.getId())) {
+
+                        i = tehtavaLista.indexOf(t);
+
+                    }
+                }
+
+                tAdapter.remove(tehtavaLista.get(i));
+
+            } if(poisto == 1) {
             Tehtava palautettuTehtava = (Tehtava) data.getSerializableExtra("PalautusTehtava");
 
             for(Tehtava t : tehtavaLista) {
 
                 if(t.getId().equals(palautettuTehtava.getId())) {
 
-                     i = tehtavaLista.indexOf(t);
+                    i = tehtavaLista.indexOf(t);
 
                 }
             }
 
+
+
             tAdapter.remove(tehtavaLista.get(i));
             tAdapter.add(palautettuTehtava);
+        }
+
 
         }
 
+
+
+
     }
+
 
 
     @Override
@@ -262,6 +294,7 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
                     //päivittää listanäkymään muutokset
                     tAdapter.notifyDataSetChanged();
                     Log.d("uithread", "1");
+
                 }
             });
 
@@ -320,7 +353,6 @@ public class MainActivity extends AppCompatActivity implements TehtavaAjastin.te
         tehtavaListView = findViewById(R.id.tLista);
         tAdapter = new TehtavaAdapter(this,tehtavaLista);
         tehtavaListView.setAdapter(tAdapter);
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

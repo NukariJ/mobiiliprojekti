@@ -88,6 +88,8 @@ public class Tehtava implements Serializable {
         this.paaTehtavaSuoritettu = paaTehtavaSuoritettu;
     }
 
+
+
     public void laskeSuoritusProsentti() {
 
         double suorituksia = 0;
@@ -115,5 +117,7 @@ public class Tehtava implements Serializable {
             }
         }
     }
+
+
 
 }
