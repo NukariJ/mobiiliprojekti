@@ -6,6 +6,8 @@
       <module fileurl="file://$PROJECT_DIR$/Mobiilisovellusprojekti-mobiilisovellusprojekti_v6-Mobiilisovellus.iml" filepath="$PROJECT_DIR$/Mobiilisovellusprojekti-mobiilisovellusprojekti_v6-Mobiilisovellus.iml" group="Mobiilisovellus" />
       <module fileurl="file://$PROJECT_DIR$/app/Mobiilisovellusprojekti-mobiilisovellusprojekti_v6-app.iml" filepath="$PROJECT_DIR$/app/Mobiilisovellusprojekti-mobiilisovellusprojekti_v6-app.iml" group="Mobiilisovellus/app" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="Mobiilisovellus/app" />
+      <module fileurl="file://$PROJECT_DIR$/mobiiliprojekti-Mobiilisovellusprojekti-mobiilisovellusprojekti_v6-Mobiilisovellus.iml" filepath="$PROJECT_DIR$/mobiiliprojekti-Mobiilisovellusprojekti-mobiilisovellusprojekti_v6-Mobiilisovellus.iml" group="Mobiilisovellus" />
+      <module fileurl="file://$PROJECT_DIR$/app/mobiiliprojekti-Mobiilisovellusprojekti-mobiilisovellusprojekti_v6-app.iml" filepath="$PROJECT_DIR$/app/mobiiliprojekti-Mobiilisovellusprojekti-mobiilisovellusprojekti_v6-app.iml" group="Mobiilisovellus/app" />
       <module fileurl="file://$PROJECT_DIR$/mobiilisovellusprojekti_v6-Mobiilisovellus.iml" filepath="$PROJECT_DIR$/mobiilisovellusprojekti_v6-Mobiilisovellus.iml" group="Mobiilisovellus" />
       <module fileurl="file://$PROJECT_DIR$/app/mobiilisovellusprojekti_v6-app.iml" filepath="$PROJECT_DIR$/app/mobiilisovellusprojekti_v6-app.iml" group="Mobiilisovellus/app" />
     </modules>

@@ -72,6 +72,7 @@ public class Alitehtava_Esikatselu extends AppCompatActivity implements View.OnC
         }
         else if(v.getId() == R.id.deleteTask){
 
+            sendDataBackToTasks(2);
         }
         else if (v.getId() == R.id.SubtaskEditor){
             Intent intent2 = new Intent(Alitehtava_Esikatselu.this, Muokkaa_Alitehtava.class);
@@ -125,5 +126,14 @@ public class Alitehtava_Esikatselu extends AppCompatActivity implements View.OnC
 
         }
 
+    }
+
+    public void sendDataBackToTasks(int poisto)
+    {
+        Intent intent = new Intent();
+        intent.putExtra("PoistaAlitehtava",poisto);
+        intent.putExtra("R_SUBTASK",subTask);
+        setResult(Activity.RESULT_OK,intent);
+        finish();
     }
 }

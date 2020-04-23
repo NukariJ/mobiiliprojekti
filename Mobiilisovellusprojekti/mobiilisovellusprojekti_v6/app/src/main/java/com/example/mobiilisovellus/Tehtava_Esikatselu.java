@@ -141,14 +141,26 @@ public class Tehtava_Esikatselu extends AppCompatActivity {
         }
         if (requestCode == MY_REQUEST_CODE2 && resultCode == Activity.RESULT_OK)
         {
-            Alitehtava saatuAlitehtava = (Alitehtava) data.getSerializableExtra("R_SUBTASK");
-            for(Alitehtava a : alitehtavaList) {
-                if(a.getAlitehtava_ID().equals(saatuAlitehtava.getAlitehtava_ID())) {
-                    a.setAlitehtavannimi(saatuAlitehtava.getAlitehtavannimi());
-                    a.setAlitehtavankuvaus(saatuAlitehtava.getAlitehtavankuvaus());
-                    a.setSuoritettu(saatuAlitehtava.isSuoritettu());
+            int poistoNro = data.getIntExtra("PoistaAlitehtava",1);
+            if(poistoNro == 1) {
+                Alitehtava saatuAlitehtava = (Alitehtava) data.getSerializableExtra("R_SUBTASK");
+                for(Alitehtava a : alitehtavaList) {
+                    if(a.getAlitehtava_ID().equals(saatuAlitehtava.getAlitehtava_ID())) {
+                        a.setAlitehtavannimi(saatuAlitehtava.getAlitehtavannimi());
+                        a.setAlitehtavankuvaus(saatuAlitehtava.getAlitehtavankuvaus());
+                        a.setSuoritettu(saatuAlitehtava.isSuoritettu());
+                    }
                 }
             }
+            if(poistoNro == 2) {
+                Alitehtava saatuAlitehtava = (Alitehtava) data.getSerializableExtra("R_SUBTASK");
+                for (Alitehtava a : alitehtavaList) {
+                    if (a.getAlitehtava_ID().equals(saatuAlitehtava.getAlitehtava_ID())) {
+                        alitehtavaList.remove(a);
+                    }
+                }
+            }
+
             tarkasteltavaTehtava.laskeSuoritusProsentti();
             taskPercent.setText(tarkasteltavaTehtava.getSuoritettu()+" %");
 
