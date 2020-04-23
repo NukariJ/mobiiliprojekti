@@ -1,44 +1,54 @@
 package com.example.mobiilisovellus;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+public class Muokkaa_Tehtava extends AppCompatActivity implements View.OnClickListener {
 
-public class Lisaa_Tehtava extends AppCompatActivity implements View.OnClickListener  {
+    String name;
+    String task;
 
+    EditText editName;
+    EditText editTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lisaa_tehtava);
+        setContentView(R.layout.activity_muokkaa__tehtava);
+
+        Intent intent = getIntent();
+        name = intent.getStringExtra("name");
+        task = intent.getStringExtra("kuvaus");
+
+
+        editName = findViewById(R.id.addTaskname);
+        editTask = findViewById(R.id.taskDescription);
+
+        editName.setText(name);
+        editTask.setText(task);
+
+
         findViewById(R.id.saveTask).setOnClickListener(this);
         findViewById(R.id.backButton).setOnClickListener(this);
-
-
-
     }
 
-
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    public void onClick(View view) {                        //Lähettää tehtävän nimen eteenpäin
+    public void onClick(View view) {
         if (view.getId() == R.id.saveTask) {
 
             Intent resultIntent = new Intent();
 
-            try{
+            try {
                 EditText aika = findViewById(R.id.taskDuration);
                 int tehtavanKesto = Integer.parseInt(aika.getText().toString());
 
@@ -50,27 +60,22 @@ public class Lisaa_Tehtava extends AppCompatActivity implements View.OnClickList
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+                String time2 = LocalDateTime.now().plusDays(tehtavanKesto).format(formatter);
 
-                Tehtava t = new Tehtava(nimi,kuvaus,LocalDateTime.now().plusDays(tehtavanKesto).format(formatter),0);
-                t.setId(LocalDateTime.now().format(formatter));
-                resultIntent.putExtra("LisattyTehtava", t);
+                resultIntent.putExtra("LisattyTehtava", nimi);
+                resultIntent.putExtra("LisattyKuvaus", kuvaus);
+                resultIntent.putExtra("LisattyAika", time2);
                 setResult(Activity.RESULT_OK, resultIntent);
                 finish();
 
-
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
 
-                //tähän vaikka dialogi epäonnistumiselle
+            }
+            if (view.getId() == R.id.backButton) {
+                finish();
             }
 
-
-
-        }
-        if(view.getId() == R.id.backButton) {
-            finish();
         }
     }
-
-
 }

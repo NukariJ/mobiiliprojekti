@@ -105,8 +105,9 @@ public class Tehtava implements Serializable {
                 suorituksia++;
             }
 
-            this.suoritettu = suorituksia/(aliTehtava.size() + 1);
-            this.suoritettu *= 100;
+            this.suoritettu = suorituksia/(aliTehtava.size());
+            double roundOff = Math.round(this.suoritettu*100)/100d;
+            this.suoritettu = roundOff*100;
 
         }else {
             if(paaTehtavaSuoritettu == true) {

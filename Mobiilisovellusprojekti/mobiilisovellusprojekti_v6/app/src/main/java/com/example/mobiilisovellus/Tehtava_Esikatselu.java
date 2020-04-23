@@ -33,6 +33,7 @@ public class Tehtava_Esikatselu extends AppCompatActivity {
     private Tehtava tarkasteltavaTehtava;
     private static final int MY_REQUEST_CODE = 1;
     private static final int MY_REQUEST_CODE2 = 2;
+    private static final int MY_REQUEST_CODE3 = 3;
 
     private ArrayList<Alitehtava> alitehtavaList;
     private AlitehtavaAdapter atAdapter;
@@ -105,7 +106,10 @@ public class Tehtava_Esikatselu extends AppCompatActivity {
                     sendDataBackToMain();
                     break;
                 case R.id.editButton:
-                    startActivity(new Intent(Tehtava_Esikatselu.this, Lisaa_Tehtava.class));
+                    Intent intent2 = new Intent(Tehtava_Esikatselu.this, Muokkaa_Tehtava.class);
+                    intent2.putExtra("name", tarkasteltavaTehtava.getNimi());
+                    intent2.putExtra("kuvaus", tarkasteltavaTehtava.getKuvaus());
+                    startActivityForResult(intent2, MY_REQUEST_CODE3);
                     break;
                 case R.id.addSubtask:
                     Intent intent = new Intent(Tehtava_Esikatselu.this, Lisaa_Alitehtava.class);
@@ -141,6 +145,16 @@ public class Tehtava_Esikatselu extends AppCompatActivity {
             tarkasteltavaTehtava.laskeSuoritusProsentti();
             taskPercent.setText(tarkasteltavaTehtava.getSuoritettu()+" %");
 
+        }
+        if (requestCode == MY_REQUEST_CODE3 && resultCode == Activity.RESULT_OK)
+        {
+            tarkasteltavaTehtava.setNimi(data.getStringExtra("LisattyTehtava"));
+            tarkasteltavaTehtava.setKuvaus(data.getStringExtra("LisattyKuvaus"));
+            tarkasteltavaTehtava.setPaivamaara(data.getStringExtra("LisattyAika"));
+
+            taskName.setText(tarkasteltavaTehtava.getNimi());
+            taskInfo.setText(tarkasteltavaTehtava.getKuvaus());
+            taskDate.setText(tarkasteltavaTehtava.getPaivamaara());
         }
 
         runOnUiThread(new Runnable() {
