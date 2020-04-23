@@ -1,5 +1,6 @@
 package com.example.mobiilisovellus;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -17,6 +18,8 @@ public class Alitehtava_Esikatselu extends AppCompatActivity implements View.OnC
     String name;
     String info;
     Alitehtava subTask;
+
+    private static final int MY_REQUEST_CODE = 1;
 
 
     Button button2;
@@ -46,6 +49,7 @@ public class Alitehtava_Esikatselu extends AppCompatActivity implements View.OnC
         findViewById(R.id.subTaskPercent).setOnClickListener(this);
         findViewById(R.id.returnButton).setOnClickListener(this);
         findViewById(R.id.deleteTask).setOnClickListener(this);
+        findViewById(R.id.SubtaskEditor).setOnClickListener(this);
 
     }
 
@@ -69,7 +73,28 @@ public class Alitehtava_Esikatselu extends AppCompatActivity implements View.OnC
         else if(v.getId() == R.id.deleteTask){
 
         }
+        else if (v.getId() == R.id.SubtaskEditor){
+            Intent intent2 = new Intent(Alitehtava_Esikatselu.this, Muokkaa_Alitehtava.class);
+            intent2.putExtra("name", subTask.getAlitehtavannimi());
+            intent2.putExtra("kuvaus", subTask.getAlitehtavankuvaus());
+            startActivityForResult(intent2, MY_REQUEST_CODE);
+
+        }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == MY_REQUEST_CODE && resultCode == Activity.RESULT_OK)
+        {
+            subTask.setAlitehtavannimi(data.getStringExtra("LisattyTehtava"));
+            subTask.setAlitehtavankuvaus(data.getStringExtra("LisattyKuvaus"));
+
+            Subtaskname.setText(subTask.getAlitehtavannimi());
+            SubtaskDescription.setText(subTask.getAlitehtavankuvaus());
+        }
+    }
+
 
     private void buttonState() {
 
