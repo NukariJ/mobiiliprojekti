@@ -154,11 +154,13 @@ public class Tehtava_Esikatselu extends AppCompatActivity {
             }
             if(poistoNro == 2) {
                 Alitehtava saatuAlitehtava = (Alitehtava) data.getSerializableExtra("R_SUBTASK");
+                int i = -1;
                 for (Alitehtava a : alitehtavaList) {
                     if (a.getAlitehtava_ID().equals(saatuAlitehtava.getAlitehtava_ID())) {
-                        alitehtavaList.remove(a);
+                        i = alitehtavaList.indexOf(a);
                     }
                 }
+                alitehtavaList.remove(i);
             }
 
             tarkasteltavaTehtava.laskeSuoritusProsentti();

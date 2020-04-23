@@ -3,22 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/item1"
-        android:title="item"
+        android:title="Kauppa"
         app:showAsAction="never"/>
 
     <item android:id="@+id/item2"
-        android:title="Item 2"
+        android:title="Lisaosat"
         app:showAsAction="never"/>
 
     <item android:id="@+id/item3"
-        android:title="Item 3"
+        android:title="E-kirjat"
         app:showAsAction="never"/>
 
     <item android:id="@+id/item4"
-        android:title="Item 4"
+        android:title="Asetukset"
         app:showAsAction="never"/>
 
     <item android:id="@+id/item5"
-        android:title="Item 5"
+        android:title="Testinappi"
         app:showAsAction="never"/>
 </menu>

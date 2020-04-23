@@ -111,10 +111,9 @@ public class Tehtava implements Serializable {
             double roundOff = Math.round(this.suoritettu*100)/100d;
             this.suoritettu = roundOff*100;
 
-        }else {
-            if(paaTehtavaSuoritettu == true) {
-                this.suoritettu = 100;
-            }
+
+        }else{
+            this.suoritettu = 0;
         }
     }
 

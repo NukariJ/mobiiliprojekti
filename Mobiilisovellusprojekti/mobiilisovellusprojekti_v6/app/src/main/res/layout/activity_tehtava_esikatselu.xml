@@ -36,12 +36,7 @@
             android:textSize="20dp"
             android:gravity=""
             android:textStyle="bold"/>
-        <Button
-            android:id="@+id/setStateButton"
-            android:layout_marginLeft="215dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="KESKEN"/>
+
         </LinearLayout>
 
         <LinearLayout

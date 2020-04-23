@@ -3,6 +3,8 @@ package com.example.mobiilisovellus;
 
 import android.os.AsyncTask;
 import android.os.Build;
+import android.util.Log;
+
 import androidx.annotation.RequiresApi;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -31,7 +33,7 @@ public class TehtavaAjastin extends AsyncTask <String,String,String>{
         tulosLista = new ArrayList<>();
 
         while(isStarted = true) {
-
+            Log.d("thread cycle","start");
             try{
 
                 if(!tehtavaLista.isEmpty()) {
@@ -59,7 +61,7 @@ public class TehtavaAjastin extends AsyncTask <String,String,String>{
                     raportti.lahetaRaportti(tulosLista);
                 }
 
-                sleep(1000);
+                sleep(5000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
